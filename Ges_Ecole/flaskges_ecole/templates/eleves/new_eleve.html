@@ -1,0 +1,72 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-4" style="padding-top:20px;">
+      <div class="content-section" style="height: 240px;">
+        {% include 'layouts/partials/_card_left.html' %}
+      </div>
+    </div>
+    <div class="col-md-8" style="padding-top:20px;">
+      <div class="card" style="width: 750px;">
+
+        <div class="card-body">
+           <form method="POST" action="">
+              {{ form.hidden_tag() }}
+              <fieldset class="form-group">
+                <legend class="border-bottom mb-4">{{ legend }}</legend>
+                <div class="form-group">
+                  {{ form.prenom_eleve.label(class="form-control-label") }}
+                    {% if form.prenom_eleve.errors %}
+                      {{ form.prenom_eleve(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                          {% for error in form.prenom_eleve.errors  %}
+                            <span> {{ error }} </span>
+                              {% endfor %}
+                        </div>
+                    {% else %}
+                      {{ form.prenom_eleve(class="form-control form-control-lg") }}
+                    {% endif %}
+                 </div>
+                 <div class="form-group">
+                  {{ form.nom_eleve.label(class="form-control-label") }}
+                    {% if form.nom_eleve.errors %}
+                      {{ form.nom_eleve(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                          {% for error in form.nom_eleve.errors  %}
+                            <span> {{ error }} </span>
+                              {% endfor %}
+                        </div>
+                    {% else %}
+                      {{ form.nom_eleve(class="form-control form-control-lg") }}
+                    {% endif %}
+                 </div>
+                  <div class="form-group">
+                    {{ form.sexe.label(class="form-control-label") }}
+                    <select class="custom-select" {{ form.sexe(class="form-control form-control-lg") }} required>
+                      <option value="" selected="selected">Indiquer le sexe ?</option>
+                      <option value="Masculin">Masculin</option>
+                      <option value="Feminin">Feminin</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    {{ form.id_nom_classe.label(class="form-control-label") }}
+                    <select class="custom-select" {{ form.id_nom_classe(class="form-control form-control-lg") }} required>
+                    <option value="" selected="selected">Indiquer le nom de la classe?</option>
+                      {% for classe in classes %}
+                        <option value="{{ classe.id }}">{{ classe.nom_classe }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+               </fieldset>
+             <div class="form-group" style="text-align:center;">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

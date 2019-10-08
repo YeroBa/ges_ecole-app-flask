@@ -1,0 +1,47 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-4" style="padding-top:20px;">
+      <div class="content-section" style="height: 240px;">
+        {% include 'layouts/partials/_card_left.html' %}
+      </div>
+    </div>
+    <div class="col-md-8" style="padding-top:20px;">
+      <div class="card" style="width: 750px;">
+        <div class="card-header"><h4>La liste des eleves inscrits dans la classe de {{
+        nom_classe }} </h4></div>
+        <div class="card-body">
+           <div class="row container-fluid">
+            <table class="table table-bordered text-center">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Prenom</th>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Sexe</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for classe in classes %}
+                  {% set count = [1] %}
+                  {% for eleve in classe.eleves %}
+                    <tr>
+                      <th scope="row">{{ count }}</th>
+                      <td>{{ eleve.prenom_eleve }}</td>
+                      <td>{{ eleve.nom_eleve }}</td>
+                      <td>{{ eleve.sexe }}</td>
+                    </tr>
+                  {% if count.append(count.pop() + 1) %}{% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

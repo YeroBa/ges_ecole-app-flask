@@ -1,0 +1,120 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-4" style="padding-top:20px;">
+      <div class="content-section" style="height: 240px;">
+        {% include 'layouts/partials/_card_left.html' %}
+      </div>
+    </div>
+    <div class="col-md-8" style="padding-top:20px;">
+
+        <div class="card" style="width: 750px;">
+          <div class="card-header">Adding Class </div><br>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajoutClasse"style="width: 20%;margin:10px;"> New Classe
+            </button><br>
+            <form method="post" action="">
+              {{ form.hidden_tag() }}
+              <!-- Modal -->
+                <div class="modal fade" id="ajoutClasse" tabindex="-1" role="dialog"              aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Adding class</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="form-group col-md-10">
+                            {{ form.nom_classe.label(class="form-control-label") }}
+                            {% if form.nom_classe.errors %}
+                              {{ form.nom_classe(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                {% for error in form.nom_classe.errors  %}
+                                  <span> {{ error }} </span>
+                                {% endfor %}
+                              </div>
+                            {% else %}
+                              {{ form.nom_classe(class="form-control form-control-lg") }}
+                            {% endif %}
+                          </div>
+                        </div><br>
+                          <div class="form-group" style="text-align:center">
+                              {{ form.submit(class="btn btn-outline-info ") }}
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <!-- end Modal -->
+            </form>
+            <div class="row container-fluid" >
+              <table class="table table-bordered text-center" style="margin-left: 5%">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom Classe</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% set count = [1] %}
+                  {% for classe in clas %}
+                    <tr>
+                       <th scope="row">{{ count }}</th>
+                       <td>{{ classe.nom_classe }}</td>
+                       <td>
+                         <div class="row">
+                          <div class="col-md-6">
+                            <a href="{{ url_for('classes.update_classe', classe_id=classe.id) }}">
+                               <button type="button" class="btn btn-info btn-sm m-1" >
+                               Update</button>
+                            </a>
+                          </div>
+                          <div class="col-md-6">
+                            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal"> Delete</button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Delete Post ?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <form action="{{  url_for('classes.delete_classe', classe_id=classe.id) }}" method="POST">
+                                      <input type="submit" class="btn btn-danger" value="Delete">
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--End Modal -->
+
+                          </div>
+                        </div>
+
+                       </td>
+                      {% if count.append(count.pop() + 1) %}{% endif %}
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

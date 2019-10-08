@@ -1,0 +1,44 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-4" style="padding-top:20px;">
+      <div class="content-section" style="height: 240px;">
+        {% include 'layouts/partials/_card_left.html' %}
+      </div>
+    </div>
+    <div class="col-md-8" style="padding-top:20px;">
+      <div class="card" style="width: 750px;">
+
+        <div class="card-body">
+           <form method="POST" action="">
+              {{ form.hidden_tag() }}
+              <fieldset class="form-group">
+                <legend class="border-bottom mb-4">{{ legend }}</legend>
+                  <div class="row container-fluid">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      {{ form.nom_classe.label(class="form-control-label") }}
+                      <select class="custom-select" {{ form.nom_classe(class="form-control form-control-lg") }} >
+                      <option value="" selected="selected">Indiquer le nom de la classe?</option>
+                        {% for classe in classes %}
+                          <option value="{{ classe.nom_classe}}">{{ classe.nom_classe }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4"><br>
+                     <div class="form-group" style="text-align:center;">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+                  </div>
+                </div>
+            </fieldset><br>
+          </form>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

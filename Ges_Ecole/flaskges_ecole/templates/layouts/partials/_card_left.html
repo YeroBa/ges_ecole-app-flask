@@ -1,0 +1,12 @@
+<br>
+<a href="{{url_for('main.dashbord')}}"  class="btn color-btn btn-info">Tableau de bord</a><br> <br>
+<div class="btn-group">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Gestion Inscription
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="{{ url_for('eleves.new_eleve') }}">Nouveau Eleve</a>
+    <a class="dropdown-item" href="{{ url_for('classes.search_name_classe') }}">Liste des eleves</a>
+  </div>
+</div>
+

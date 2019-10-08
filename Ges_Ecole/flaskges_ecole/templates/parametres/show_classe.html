@@ -1,0 +1,41 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-4" style="padding-top:20px;">
+      <div class="content-section" style="height: 240px;">
+        {% include 'layouts/partials/_card_left.html' %}
+      </div>
+    </div>
+    <div class="col-md-8" style="padding-top:20px;">
+      <div class="content-section" style="width: 600px;">
+          <!-- FORM HERE -->
+          <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Update Classe</legend>
+                <div class="form-group">
+                  {{ form.nom_classe.label(class="form-control-label") }}
+                  {% if form.nom_classe.errors %}
+                    {{ form.nom_classe(class="form-control form-control-lg is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.nom_classe.errors  %}
+                          <span> {{ error }} </span>
+                        {% endfor %}
+                      </div>
+                  {% else %}
+                   {{ form.nom_classe(class="form-control form-control-lg") }}
+                  {% endif %}
+                 </div>
+              </fieldset>
+              <div class="form-group" style="text-align:center">
+                {{ form.submit(class="btn btn-outline-info") }}
+              </div>
+          </form>
+        <!--end FORM HERE -->
+        </div>
+     </div>
+   </div>
+ </div>
+{% endblock %}
